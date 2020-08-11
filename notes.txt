@@ -1,0 +1,28 @@
+- install nestjs
+  ~ npm i -g @nestjs/cli
+
+- check the version of nestjs
+  ~ nestjs --version
+
+- nestjs cli
+it's a compendium tool for nestjs that helps us to generate files, run, compile and even bundle our applications.
+
+- create a nestjs app
+  ~ nestjs new
+
+- main.ts
+the entire nestjs application starts with the main.ts file, its like the main starting file for the tipycal
+nodejs application.
+
+- AppModule
+AppModule module its the root module for the application containing everything itself that an app needs to
+run this root module can contain others modules there all different features and tunks themselfs, but when
+we brought together we get a complete application.
+
+- Decoratos
+are simple functions that apply logic.
+
+- Modular project architecture
+allow to group features such as routes, services, models into their own modules, and at the end this help us 
+maintaining a high level of reusability and testability.
+
