@@ -26,3 +26,59 @@ are simple functions that apply logic.
 allow to group features such as routes, services, models into their own modules, and at the end this help us 
 maintaining a high level of reusability and testability.
 
+- generate nestjs controller
+  ~nest generate controller
+  ~nest g co
+  ~nest g co --no-spec
+  ~nest generate controller modules/abc --dry-run
+
+- @Res() response: Response 
+  its a decorator that allow to full control the response object of express... doing this is not fully
+  recommended because it decrese the compatibility with the framework.
+
+- @HttpCode(HttpStatus.GONE)
+  its a decorator that set the HttpCode code response for controller method... doing this is not fully
+  recommended because it decrese the compatibility with the framework.
+
+- Services
+Services are very important parts of nestjs applications as they help us separate our business logic from
+our controllers, separating out business logic helps make this logic reusable throughout multiple parts
+of our application.
+
+- generate nestjs service
+  ~nest generate service
+  ~nest g s
+  ~nest g s --no-spec
+
+- provider
+the main idea of a provider is that it can inject dependencies, this means that objects can create various
+relationships to each others, and the logic of wiring up instances of objects together can all be handled
+by the nest runtime system.
+
+- modules
+are strongly recommended as an efective way to organize the application components for most of nest apps
+and ideal architecture should employ multiple modules, each encapsulating a closely related set of capabilities
+
+- generate nestjs module
+  ~nest generate module <module's name>
+  ~nest g module <module's name>
+
+- Nest Modules contain 4 main things:
+  controllers - Which you can think of as our API Routes, that we want this module to instantiate.
+  
+  exports - Here we can list providers within this current module that should be made available 
+  anywhere this module is imported
+
+  imports - Just as we saw in the AppModule, the imports Array gives us the ability to list OTHER modules that
+  THIS module requires. Any exported providers of these imported modules are now fully available here as well.
+
+  providers - Here we’re going to list our services that need to be instantiated by the Nest injector.
+  Any providers here will be available only within “THIS” module itself, unless added to the exports array we
+  saw above.
+
+- DTO (Data Transfer object)
+is an object that is used to encasulate data and send it from on app to another, DTO's help us define the
+interfaces or input and output within our system.
+
+- generate nestjs DTO
+  ~nest g class coffees/dto/create-coffee.dto --no-spec
