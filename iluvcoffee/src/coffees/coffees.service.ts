@@ -29,6 +29,7 @@ export class CoffeesService {
   create(createCoffeeDto: any): void {
     const temp = [...this.coffees, createCoffeeDto];
     this.coffees = temp;
+    return createCoffeeDto;
   }
 
   update(id: string, updateCoffeeDto: any): void {

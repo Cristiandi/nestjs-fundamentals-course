@@ -82,3 +82,10 @@ interfaces or input and output within our system.
 
 - generate nestjs DTO
   ~nest g class coffees/dto/create-coffee.dto --no-spec
+
+- ValidationPipe
+its a tool that comes in nestjs to automatically validate the request, this tool provides a convenient way of
+enforcing validation rules all incoming client payloads.
+with the option whitelist: true it cleans the request payloads from non existing attributes in DTOs
+with forbidNonWhitelisted: true it throw an error when the request payloads has non existing attributes in DTOs
+with the option transform: true it'll transform the payload request in DTO instance automatically
