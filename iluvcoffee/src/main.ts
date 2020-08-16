@@ -7,7 +7,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true, // cleans the request payloads from non existing attributes in DTOs
     forbidNonWhitelisted: true, // throw an error when the request payloads has non existing attributes in DTOs
-    transform: true
+    transform: true,
+    transformOptions: {
+      enableImplicitConversion: true
+    }
   }));
   await app.listen(3000);
 }

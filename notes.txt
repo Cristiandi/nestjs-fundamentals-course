@@ -89,3 +89,27 @@ enforcing validation rules all incoming client payloads.
 with the option whitelist: true it cleans the request payloads from non existing attributes in DTOs
 with forbidNonWhitelisted: true it throw an error when the request payloads has non existing attributes in DTOs
 with the option transform: true it'll transform the payload request in DTO instance automatically
+with transformOptions.enableImplicitConversion: true set the ValidationPipe no longer have to explicity specify types
+with the @Type() decorator
+
+- Entity in TypeORM
+it represent a relationship between a TypeScrpt class and database table
+
+- .forFeature()
+the use of forFeature() registers TypeORM in a child module
+- .forRoot()
+the use of forRoot() registers TypeORM in a AppModule but we do that once.
+
+- Repository pattern in TypeORM
+this means that each Entity we create has its own repository, the repository class available from TypeORM acts
+an abstraction over out data source and exposes a variety of useful methods to interact with the records stored
+in our database
+
+- Generate a migration in TypeORM
+  ~npx typeorm migration:create -n <migration_name>
+- Run migrations in TypeORM
+  ~npx typeorm migration:run
+- Rollback migrations in TypeORM
+  ~npx typeorm migration:revert
+- Generate migrations based on comparation vs DB and Entities
+  ~npx typeorm migration:generate -n <migration_name>
