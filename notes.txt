@@ -113,3 +113,29 @@ in our database
   ~npx typeorm migration:revert
 - Generate migrations based on comparation vs DB and Entities
   ~npx typeorm migration:generate -n <migration_name>
+
+- Injection Depency -
+In nestjs the the inyection depency is delegated an inversion of control contaier (IoC) in that case the IoC is the
+nestjs runtime system itself
+
+3 steps for injection depency happens
+-  add @injectable() decorator to the class that allows that the IoC handles the class and it mark the class as a 
+provider.
+- add the dependency a an attribute injected by the constructor method, that tell to nest the class need that dependency.
+- add the class as an item in the providers array field of the @module decorator to indicate to nest that the class
+is a provider for the module.
+
+
+When the IoC instanties the controller, it firts looks to see if there are any dependencies needed, when the IoC finds
+the dependencies it perfoms a lookup on the depency token that returns the depency class, asuming that the dependency has
+a singleton scope (default on nestjs) nestjs will create an instance of the depency class cache and return it, this 
+happens in the application bootstrap
+
+- Config Module
+Its a module that nestjs provide us to handle the env variables based on the environment.
+
+If you want to validate with a joi schema the env vars structure just pass the option validationSchema with a valid
+joi schema to the options for the config module.
+
+If you want to sent a custom file for the config app just create a config file and the use the option load and pass
+the route path of the created filer
