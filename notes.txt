@@ -139,3 +139,24 @@ joi schema to the options for the config module.
 
 If you want to sent a custom file for the config app just create a config file and the use the option load and pass
 the route path of the created filer
+
+- Exception filters
+are responsible for handling and processing unhandled exceptions that might occur in our application
+
+- Pipes
+are typically used to handle two things "transformations" meaning to transform input data to de desired output and
+validation meaning to evaluate input data and if VALID leit pass through the pipe but if NOT VALID throwing and
+exception
+
+- Guards
+Determinate whether a given request meets certain conditions, like authentication, authorization, roles, ACLs, etc.
+and if the conditions are met the request will be allowed to accees the route.
+
+- Interceptors
+Have many useful capabilities inspired by the aspect oriented programming technique, interceptors 1 make it possible
+bind extra logic, before or after method execution 2 transform the result returned from a method 3 extend basic method
+behavior 4 and even completly override a method depending on specific conditions, for example handling something like
+"caching responses"
+
+- generate a new filter
+  ~nest g filter common/filter/http-exception

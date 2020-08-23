@@ -1,6 +1,4 @@
-import * as Joi from '@hapi/joi';
-
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -10,8 +8,6 @@ import { AppService } from './app.service';
 
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeRatingModule } from './coffe-rating/coffe-rating.module';
-
-import appConfig from './config/app.config';
 
 @Module({
   imports: [
@@ -27,19 +23,11 @@ import appConfig from './config/app.config';
         synchronize: true
       })
     }),
-    ConfigModule.forRoot({
-      /*
-      validationSchema: Joi.object({
-        DATABASE_HOST: Joi.required(),
-        DATABASE_PORT: Joi.number().default(5432)
-      }),
-      */
-      load: [appConfig]
-    }),
+    ConfigModule.forRoot(),
     CoffeesModule,
     CoffeRatingModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}

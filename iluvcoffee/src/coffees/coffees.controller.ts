@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Body, Post, Patch, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Param, Body, Post, Patch, Delete, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { CoffeesService } from './coffees.service';
 
@@ -36,7 +36,7 @@ export class CoffeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+  update(@Param('id') id: string, @Body(ValidationPipe) updateCoffeeDto: UpdateCoffeeDto) {
     return this.coffeeService.update(id, updateCoffeeDto);
   }
 
