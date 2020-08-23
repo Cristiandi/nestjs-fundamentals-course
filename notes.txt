@@ -160,3 +160,6 @@ behavior 4 and even completly override a method depending on specific conditions
 
 - generate a new filter
   ~nest g filter common/filter/http-exception
+
+- generate a new guard
+  ~nest g guard common/guards/api-key
