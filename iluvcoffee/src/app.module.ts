@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 
 import { CoffeesModule } from './coffees/coffees.module';
 import { CoffeRatingModule } from './coffe-rating/coffe-rating.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { CoffeRatingModule } from './coffe-rating/coffe-rating.module';
     }),
     ConfigModule.forRoot(),
     CoffeesModule,
-    CoffeRatingModule
+    CoffeRatingModule,
+    CommonModule
   ],
   controllers: [AppController],
   providers: [AppService]
