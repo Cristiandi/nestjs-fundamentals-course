@@ -8,7 +8,7 @@
 it's a compendium tool for nestjs that helps us to generate files, run, compile and even bundle our applications.
 
 - create a nestjs app
-  ~ nestjs new
+  ~ nest new
 
 - main.ts
 the entire nestjs application starts with the main.ts file, its like the main starting file for the tipycal
@@ -157,9 +157,20 @@ Have many useful capabilities inspired by the aspect oriented programming techni
 bind extra logic, before or after method execution 2 transform the result returned from a method 3 extend basic method
 behavior 4 and even completly override a method depending on specific conditions, for example handling something like
 "caching responses"
+- Interceptors make it possible for us to:
+  -bind extra logic before or after method execution
+  -transform the result returned from a method
+  -transform the exception thrown from a method
+  -extend basic method behavior
+  -or even completely overriding a method - depending on a specific condition (for example: doing something like caching
+  various responses)
+
 
 - generate a new filter
-  ~nest g filter common/filter/http-exception
+   ~nest g filter common/filter/http-exception
 
 - generate a new guard
   ~nest g guard common/guards/api-key
+
+  - generate a new interceptor
+  ~nest g interceptor common/interceptors/wrap-response

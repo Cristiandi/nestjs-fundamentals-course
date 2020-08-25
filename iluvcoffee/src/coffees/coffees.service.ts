@@ -21,7 +21,7 @@ export class CoffeesService {
     ) {}
 
   findAll(paginationQuery: PaginationQueryDto): Promise<Coffee[]> {
-    const { limit, offset } = paginationQuery;
+    const { limit = 1, offset = 0 } = paginationQuery;
     return this.coffeeRepository.find({
       relations: ['flavors'],
       take: limit,
