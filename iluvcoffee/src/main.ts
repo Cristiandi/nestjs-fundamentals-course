@@ -3,7 +3,9 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
 import { HttpExceptionFilter } from './common/filter/http-exception.filter';
+
 import { WrapResponseInterceptor } from './common/interceptors/wrap-response.interceptor';
+import { TimeoutInterceptor } from './common/interceptors/timeout.interceptor';
 // import { ApiKeyGuard } from './common/guards/api-key.guard';
 
 async function bootstrap() {
@@ -17,7 +19,12 @@ async function bootstrap() {
     }
   }));
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalInterceptors(new WrapResponseInterceptor());
+  
+  app.useGlobalInterceptors(
+    new WrapResponseInterceptor(),
+    new TimeoutInterceptor()
+  );
+  
   await app.listen(3000);
 }
 bootstrap();
