@@ -11,9 +11,9 @@ import { Public } from 'src/common/decorators/public.decorator';
 import { Protocol } from 'src/common/decorators/protocol.decorator';
 
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
-import { ApiForbiddenResponse } from '@nestjs/swagger';
+import { ApiForbiddenResponse, ApiTags } from '@nestjs/swagger';
 
-
+@ApiTags('coffees')
 @Controller('coffees')
 export class CoffeesController {
   constructor(
