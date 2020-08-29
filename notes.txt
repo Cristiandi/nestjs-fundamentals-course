@@ -174,3 +174,24 @@ behavior 4 and even completly override a method depending on specific conditions
 
   - generate a new interceptor
   ~nest g interceptor common/interceptors/wrap-response
+
+- generate a nuw pipe
+  ~nest g pipe common/pipes/parse-int
+
+- Middleware
+Its a function that is called before the route handler and any other building blocks are processed. this includes
+interceptors, guards and pipes, middleware functions have accees to the Request and Response objects and
+are not spesically tied to any method, but rather to a specific route path.
+Middlewares can execute this tasks:
+  - Executing code.
+  - Making changes to the request and response objects.
+  - Ending the request / response cycle.
+  - Or even calling the next() function middleware function in the call stack.
+
+Whe working with middleware, if the current middleware function does not end the request / response cycle it must call
+the next method, wich passes the control to the next middleware function. Otherwise the request willl be left-handling
+and never complete.
+
+- generate a new middleware:
+  ~nest g middleware common/middlewares/logging
+
