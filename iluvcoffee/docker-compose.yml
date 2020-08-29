@@ -1,10 +1,17 @@
-version: '3'
+version: "3"
 
-services: 
+services:
   db:
     image: postgres
     restart: always
-    ports: 
+    ports:
       - "5432:5432"
-    environment: 
+    environment:
+      POSTGRES_PASSWORD: toor
+  test-db:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432" # Note the 5433 port (since we are using 5432 for our regular db)
+    environment:
       POSTGRES_PASSWORD: toor

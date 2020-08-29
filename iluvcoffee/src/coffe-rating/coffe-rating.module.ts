@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CoffeRatingService } from './coffe-rating.service';
-import { CoffeesModule } from 'src/coffees/coffees.module';
-import { DatabaseModule } from 'src/database/database.module';
+import { CoffeesModule } from '../coffees/coffees.module';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
   imports: [
