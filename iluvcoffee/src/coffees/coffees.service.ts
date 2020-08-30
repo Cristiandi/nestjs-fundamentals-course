@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
+import { Model, Connection } from 'mongoose';
+import { InjectModel, InjectConnection } from '@nestjs/mongoose';
 
 import { Coffee } from './entities/coffee.entity';
+import { Event } from '../events/entities/event.entity';
+
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
@@ -10,7 +12,9 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 @Injectable()
 export class CoffeesService {
   constructor(
-    @InjectModel(Coffee.name) private readonly coffeeModel: Model<Coffee>
+    @InjectModel(Coffee.name) private readonly coffeeModel: Model<Coffee>,
+    @InjectConnection() private readonly connection: Connection,
+    @InjectModel(Event.name) private readonly eventModel: Model<Event>,
   ) { }
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -53,5 +57,28 @@ export class CoffeesService {
   async remove(id: string): Promise<Coffee> {
     const coffee = await this.findOne(id);
     return coffee.remove();
+  }
+
+  async recommendCoffee(coffee: Coffee) {
+    const session = await this.connection.startSession();
+    session.startTransaction();
+
+    try {
+      coffee.recommendations++;
+
+      const recommendEvent = new this.eventModel({
+        name: 'recommend_coffe',
+        type: 'coffe',
+        payload: { coffeId: coffee.id }
+      });
+
+      await recommendEvent.save({ session });
+
+      await session.commitTransaction();      
+    } catch (error) {
+      await session.abortTransaction();
+    } finally {
+      await session.endSession();
+    }
   }
 }
