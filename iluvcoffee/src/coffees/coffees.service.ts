@@ -1,24 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
 import { Coffee } from './entities/coffee.entity';
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class CoffeesService {
-  private coffees: Coffee[] = [
-    {
-      id: 1,
-      name: 'Shipwreck roast',
-      brand: 'Buddy Brew',
-      flavors: ['chocolate', 'vanilla']
-    }
-  ];
+  constructor(
+    @InjectModel(Coffee.name) private readonly coffeeModel: Model<Coffee>
+  ) { }
 
-  findAll(): Coffee[] {
-    return this.coffees;
+  findAll(paginationQuery: PaginationQueryDto) {
+    const { limit, offset } = paginationQuery;
+
+    return this.coffeeModel.find().skip(offset).limit(limit).exec();
   }
 
-  findOne(id: string) {
-    const existingCoffee = this.coffees.find(item => item.id === +id);
-    
+  async findOne(id: string): Promise<Coffee> {
+    const existingCoffee = await this.coffeeModel.findOne({ _id: id }).exec();
+
     if (!existingCoffee) {
       throw new NotFoundException(`coffee ${id} not found`);
     }
@@ -26,33 +29,29 @@ export class CoffeesService {
     return existingCoffee
   }
 
-  create(createCoffeeDto: any): void {
-    const temp = [...this.coffees, createCoffeeDto];
-    this.coffees = temp;
-    return createCoffeeDto;
+  create(createCoffeeDto: CreateCoffeeDto): Promise<Coffee> {
+    const coffee = new this.coffeeModel(createCoffeeDto);
+    return coffee.save();
   }
 
-  update(id: string, updateCoffeeDto: any): void {
-    const existingCoffee = this.findOne(id);
-    if (existingCoffee) {
-      const updatedCoffee = {
-        ...existingCoffee,
-        ...updateCoffeeDto
-      };
+  async update(id: string, updateCoffeeDto: UpdateCoffeeDto): Promise<Coffee> {
+    const existingCoffee = await this.coffeeModel
+      .findOneAndUpdate(
+        { _id: id },
+        { $set: updateCoffeeDto },
+        { new: true })
+      .exec();
 
-      const index = this.coffees.findIndex(item => item.id === existingCoffee.id);
-
-      if (index < 0) return;
-
-      this.coffees[index] = updatedCoffee;
+    if (!existingCoffee) {
+      throw new NotFoundException(`Coffee #${id} not found`);
     }
+
+    return existingCoffee;
   }
 
 
-  remove(id: string) {
-    const coffeeIndex = this.coffees.findIndex(item => item.id === +id);
-    if (coffeeIndex >= 0) {
-      this.coffees.splice(coffeeIndex, 1);
-    }
+  async remove(id: string): Promise<Coffee> {
+    const coffee = await this.findOne(id);
+    return coffee.remove();
   }
 }
